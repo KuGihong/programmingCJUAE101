@@ -1,4 +1,0 @@
-﻿  main.c
-C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\5st week\Project2_pp.177\main.c(7,15): warning C4101: 'j' :참조되지 않은 지역 변수입니다.
-C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\5st week\Project2_pp.177\main.c(7,12): warning C4101: 'i' :참조되지 않은 지역 변수입니다.
-  Project2_pp.177.vcxproj -> C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\5st week\Project2_pp.177\x64\Debug\Project2_pp.177.exe
