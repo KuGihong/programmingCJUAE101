@@ -2,9 +2,9 @@
 
 int main(void)
 {
-	double kg;   //kg 학점 초기화
-	double cm;   //cm 학점 초기화
-	double bmi;   //bmi 학점 초기화
+	double kg;   //kg 초기화
+	double cm;   //cm 초기화
+	double bmi;   //bmi 초기화
 
 	printf("input your weight(kg) and height(cm) : ");   //몸무게와 키 입력 출력
 
