@@ -1,0 +1,4 @@
+﻿  main.c
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\6st week\Prob_2\main.c(43,15): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\6st week\Prob_2\main.c(52,9): warning C4244: '=': 'double'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  Prob_2.vcxproj -> C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\6st week\Prob_2\x64\Debug\Prob_2.exe

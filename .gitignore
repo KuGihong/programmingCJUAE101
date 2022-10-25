@@ -50,3 +50,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+5st week/Project1_multiplication_table/Project1_multiplication_table.sln
+*.sln
+*.vcxproj
+*.vcxproj
