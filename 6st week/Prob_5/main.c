@@ -3,114 +3,91 @@
 #include <time.h>
 #include<math.h> 
 
-#define NUMBER_SIZE		100
-#define	ARRAY_SIZE	10
+#define SHOOT_NUMBER	100	//미사일 발사 수
+#define	ARRAY_SIZE		10	//출력의 형태
 
-void Random_number(double* verti, double* hori)	//배열에 무작위 실수 생성, 출력
+
+double Calculation(double r1, double r2, double v, double z, double k, double *x)	//균등분포된 난수를 표준균등분포로 변경 수식
 {
-	srand(time(NULL));	//시간마다 변하는 무작위 난수
+	int i = 0;	//임시변수 i 초기화
+	int j = 0;	//임시변수 i 초기화
 
-	printf("Vertical direction\n");
-
-	for (int i = 0; i < NUMBER_SIZE; i++)
+	do	//우선 발사를 했으므로 실행문을 먼저 실행시키고 조건 검사
 	{
-		verti[i] = (double)rand() / RAND_MAX;	//0부터 1까지의 실수형 난수 생성
-		hori[i] = (double)rand() / RAND_MAX;
+		while(1)	//반복
+		{
+			r1 = (double)rand() / RAND_MAX;	//사격 변수 r1을 0~1 사이 난수로 저장
+			r2 = (double)rand() / RAND_MAX;	//사격 변수 r2을 0~1 사이 난수로 저장
+			v = sqrt(2 / exp(1.0)) * (2 * r2 - 1);	//0,1사이의 난수 r1, r2를 발생시켜 v를 구함
+			z = v / r1;								//다음 수식에 1단계에서 구한 v값과 난수값을 대입해 z와 k를 구함
+			k = ((double)1 / 4) * z * z;
 
-		if (i % ARRAY_SIZE == 0)	//수직 분포를 10*10 의 형태로 소숫점 2자리까지 출력
-		{
-			printf("\n");
-		}
-		printf("%.2f\t", verti[i]);
-	}
-
-	printf("\n\nHorizontal diection\n");
-	for (int i = 0; i < NUMBER_SIZE; i++)
-	{
-		if (i % ARRAY_SIZE == 0)	//수평 분포를 10*10 의 형태로 소숫점 2자리까지 출력
-		{
-			printf("\n");
-		}
-		printf("%.2f\t", hori[i]);
-	}
-}
-void Calculation(double *r, double *V, double *Z, double *K, double *X)	//균등분포된 난수를 표준균등분포로 변경
-{
-	for (int i = 0; i < NUMBER_SIZE; i++)
-	{
-		while (1)
-		{
-			V[i] = (sqrt(2 / exp(1.0)) * (2 * r[i] - 1));		//1단계
-			Z[i] = V[i] / r[i];									//2단계
-			K[i] = 0.25 * (pow(Z[i], 2));						//2단계
-			if (K[i] < (1 - r[i]))								//3단계 1번조건 만족 시 55행 이동
+			if (k < 1 - r1)							//다음 조건을 만족하면 1단계로 돌아가 난수 다시 생성
 			{
+				x[i] = z;		//정규분포 확률 변수 x에 z값을 넣고 반복문 탈출(33행으로 이동)
+				i++;		
 				break;
 			}
-			else if ((K[i] >= (0.259 / r[i]) + 0.35) && (K[i] > -log10(r[i])))	//3단계 2번조건 만족 시
-			{
-				r[i] = (double)rand() / RAND_MAX;	//난수를 다시 생성
-			}
+			else if ((k > (0.259 / r1) + 0.35) || (k > log(r1))) //3단계 그렇지 않으면 1단계로 돌아가 난수 다시 생성
+				continue;
 		}
-	}
-	for (int i = 0; i < 100; i++)	//4단계
+	} while (i < SHOOT_NUMBER);	//발사된 회수만큼 반복
+
+}
+void Print_Variable_X_Y(double *Vertical, double *Horizontal)	//수직, 수평 방향 정규분포 출력
+{
+	printf("\n[Horizontal variable X]\n ");
+	for (int i = 0; i < SHOOT_NUMBER; i++)	//발사된 회수만큼 반복
 	{
-		X[i] = 0 + Z[i] * 1.0;		//평균 0, 표준편차 1.0
+		if (i % ARRAY_SIZE == 0)	//출력의 형태를 10*10 의 형태로 만듬
+		{
+			printf("\n");
+		}
+		printf("%.2f\t", Horizontal[i]);	//소숫점 2자리까지 수평 방향 표준정규분포 출력
 	}
+	printf("\n"); 
+
+	printf("\n[Vertical variable Y]\n ");
+	for (int i = 0; i < SHOOT_NUMBER; i++)	//발사된 회수만큼 반복
+	{
+		if (i % ARRAY_SIZE == 0)	//출력의 형태를 10*10 의 형태로 만듬
+		{
+			printf("\n");
+		}
+		printf("%.2f\t", Vertical[i]);	//소숫점 2자리까지 수직 방향 표준정규분포 출력
+	}
+	printf("\n");
+}
+
+void Accuracy_Calculation(double* Vertical, double* Horizontal)	//명중률 계산
+{
+	int nHit = 0;	//명중 횟수 저장할 변수
+	for (int i = 0; i < SHOOT_NUMBER; i++)	//발사 회수만큼 반복 
+	{
+		if ((0.8 * Vertical[i] >= -1 && 0.8 * Vertical[i] <= 1) && (1.6 * Horizontal[i] >= -1 && 1.6 * Horizontal[i] <= 1))
+			nHit++;	//표적지 x, y가 2m, 2m이므로 0,0을 원점으로 하면 x와 y좌표는 1 ~ -1사이에 있으므로 사잇값만큼 명중 횟수 증가
+	}
+	printf("\nAccuracy: %.2lf%%\n", (double)nHit);	//소숫점 두자리까지 %로 출력
 }
 
 int main(void) 
 {
-	int nAns;	//대답 저장할 변수
-	int nRes = 0;	//결과값(명중률) 저장할 변수
-	double Vertical[NUMBER_SIZE];	//수직 변수 배열
-	double Horizontal[NUMBER_SIZE];	//수평 변수 배열
+	double Vertical[SHOOT_NUMBER];	//수직 변수 배열
+	double Horizontal[SHOOT_NUMBER];	//수평 변수 배열
+	double r1 = 0;	//발사한 미사일의 변수 r1
+	double r2 = 0;	//발사한 미사일의 변수 r2
+	double v = 0;	//계산을 위한 수식 v
+	double k = 0;	//계산을 위한 수식 k
+	double z = 0;	//계산을 위한 수식 z
+		
+	printf("Hit Rate Caclulation\n");	//명중률 계산 출력
 
-	double Verti_V[NUMBER_SIZE] = { 0 };	//수식 계산에 필요한 수직 변수 V 배열
-	double Verti_Z[NUMBER_SIZE] = { 0 };	//수식 계산에 필요한 수직 변수 Z 배열
-	double Verti_K[NUMBER_SIZE] = { 0 };	//수식 계산에 필요한 수직 변수 K 배열
+	Calculation(r1, r2, v, z, k, Vertical);		//탄착점의 수직 좌표 균등 분포를 표준정규분포로 계산		
+	Calculation(r1, r2, v, z, k, Horizontal);	//탄착점의 수평 좌표 균등 분포를 표준정규분포로 계산
 
-	double Hori_V[NUMBER_SIZE] = { 0 };		//수식 계산에 필요한 수평 변수 V 배열
-	double Hori_Z[NUMBER_SIZE] = { 0 };		//수식 계산에 필요한 수평 변수 Z 배열
-	double Hori_K[NUMBER_SIZE] = { 0 };		//수식 계산에 필요한 수평 변수 K 배열
+	Print_Variable_X_Y(Vertical, Horizontal);	//수직(x) 수평(y) 좌표의 표준 정규분포 결과 출력
 
-	double Verti_X[NUMBER_SIZE] = { 0 };	//수식 계산에 필요한 수직 변수 X 배열
-	double Hori_X[NUMBER_SIZE] = { 0 };		//수식 계산에 필요한 수평 변수 X 배열
+	Accuracy_Calculation(Vertical, Horizontal);	//표적지 명중률 출력
 
-	printf("Start a hit-rate calculation program\n(Yes: 1, No: 2)\n");
-	while (1)	//반복문
-	{
-		scanf_s("%d", &nAns);	//입력값 nAns에 저장
-		if (nAns == 1)	//nAns가 1이라면
-		{
-			Random_number(Horizontal, Vertical);	//배열에 0~1사이의 실수형 난수 생성
-			Calculation(Vertical, Verti_V, Verti_Z, Verti_K, Verti_X);	//규등 분포를 표준정규분포로 계산
-			Calculation(Horizontal, Hori_V, Hori_Z, Hori_K, Hori_X);	//규등 분포를 표준정규분포로 계산
-
-			printf("Vertical variable X is..\n ");
-			for (int i = 0; i < 100; i++)
-			{
-				printf("%.2f\n", Verti_X[i]);	//수직 방향 표준정규분포 출력
-			}
-
-			printf("Horizontal variable X is..\n ");
-			for (int i = 0; i < 100; i++)
-			{
-				printf("%.2f\n", Hori_X[i]);	//수평 방향 표준정규분포 출력
-			}
-
-			break;	//114행으로 이동
-		}
-		else if (nAns == 2)	//nAns가 2라면
-		{
-			printf("Okay..\n");
-			return 0;	//종료
-		}
-		else	//그 외의 경우
-		{
-			printf("Please enter again 1 or 2\n");	//다시 입력해주세요 출력 후 61행으로 이동
-			break;
-		}
-	}
 	return 0;
 }
