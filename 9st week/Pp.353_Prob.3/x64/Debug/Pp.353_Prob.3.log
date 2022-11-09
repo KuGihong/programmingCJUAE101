@@ -1,1 +1,4 @@
-﻿  Pp.353_Prob.3.vcxproj -> C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\9st week\Pp.353_Prob.3\x64\Debug\Pp.353_Prob.3.exe
+﻿  main.c
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\9st week\Pp.353_Prob.3\main.c(33,1): warning C4047: '초기화 중': 'char'의 간접 참조 수준이 'void *'과(와) 다릅니다.
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\9st week\Pp.353_Prob.3\main.c(34,1): warning C4047: '초기화 중': 'char'의 간접 참조 수준이 'void *'과(와) 다릅니다.
+  Pp.353_Prob.3.vcxproj -> C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\9st week\Pp.353_Prob.3\x64\Debug\Pp.353_Prob.3.exe

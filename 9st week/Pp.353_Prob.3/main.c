@@ -14,12 +14,16 @@ void Print_Res(char* pStr, char* pRes, char* pStar)	//function: print res
 	}
 	printf("Input word: ");
 	scanf_s("%s", pStr, MAXIMUM_ARRAY);	//input string
-
+	
 	if (strlen(pStr) > LENGTH)		//sentence's length over 5
 	{
 		strncpy(pRes, pStr, LENGTH);	//copy pStr to pRes
 		pRes[LENGTH] = '\0';	//place NULL at the end of string
 		strncat(pRes, pStar, (int)strlen(pStr) - LENGTH);	//add * to the length of the string by the string's length -5
+	}
+	else
+	{
+		strcpy(pRes, pStr);
 	}
 	printf("Enter the word is : %s, Omitted word is : %s\n", pStr, pRes);
 }
