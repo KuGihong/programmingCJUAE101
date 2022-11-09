@@ -1,0 +1,4 @@
+﻿  main.c
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\9st week\Pp.380_Example_Challenge\main.c(8,20): warning C4474: 'scanf_s' : 서식 문자열에 전달된 인수가 너무 많습니다.
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\9st week\Pp.380_Example_Challenge\main.c(8,20): message : 자리 표시자 및 해당 매개 변수에는 variadic 인수가 0개 필요하지만 2개가 제공되었습니다.
+  Pp.380_Example_Challenge.vcxproj -> C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\9st week\Pp.380_Example_Challenge\x64\Debug\Pp.380_Example_Challenge.exe
