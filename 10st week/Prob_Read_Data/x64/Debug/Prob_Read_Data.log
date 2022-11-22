@@ -1,0 +1,6 @@
+﻿  main.c
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\10st week\Prob_Read_Data\main.c(13,11): warning C4098: 'Print_Deep_Learning': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\10st week\Prob_Read_Data\main.c(45,11): warning C4098: 'Print_Object_Information': 'void' 함수에서 값을 반환하고 있습니다.
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\10st week\Prob_Read_Data\main.c(62,1): warning C4047: '초기화 중': 'char'의 간접 참조 수준이 'void *'과(와) 다릅니다.
+C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\10st week\Prob_Read_Data\main.c(63,1): warning C4047: '초기화 중': 'char'의 간접 참조 수준이 'void *'과(와) 다릅니다.
+  Prob_Read_Data.vcxproj -> C:\Users\kgh36\Documents\GitHub\programmingCJUAE101\10st week\Prob_Read_Data\x64\Debug\Prob_Read_Data.exe
