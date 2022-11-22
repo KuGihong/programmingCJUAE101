@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 
+#pragma warning(disable:6031)	//Ignore C6031 error to use strtok
 #define MAXIMUM_ARRAY	100	//Maximum size of array
 #define NUMBER_OF_BOOK	20	//Maximum number of books
 
@@ -17,11 +18,15 @@ void Input(Book* B, int nNum)	//Function: Input the book's data
 	for (int i = 0; i < nNum; i++)	//Repeat the number of books
 	{
 		printf("Title : ");
-		scanf_s("%s", &(B + i)->chTitle, MAXIMUM_ARRAY);	//Store to chTitle of structure B
+		getchar();	//Remove new-line character
+		gets_s(&(B + i)->chTitle, MAXIMUM_ARRAY);	//Store to chTitle of structure B
+	
 		printf("Author : ");
-		scanf_s("%s", &(B + i)->chAuthor, MAXIMUM_ARRAY);	//Store to chAuthor of structure B
+		gets_s(&(B + i)->chAuthor, MAXIMUM_ARRAY);	//Store to chAuthor of structure B
+
 		printf("Page : ");
 		scanf_s("%d", &(B + i)->nPage);		//Store to nPage of structure B
+
 		printf("Price : ");
 		scanf_s("%d", &(B + i)->nPrice);	//Store to nPrice of structure B
 		printf("\n");

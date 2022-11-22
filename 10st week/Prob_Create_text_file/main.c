@@ -27,7 +27,7 @@ int main(void)
 	printf("String: ");		//Input string
 	gets_s(str, MAXIMUM_ARRAY);
 
-	fopen_s(&fp, "C:\\Users\\kgh36\\Documents\\GitHub\\programmingCJUAE101\\10st week\\Prob_Create_text_file\\test.txt", "w+");
+	fopen_s(&fp, "C:\\Users\\kgh36\\Documents\\GitHub\\programmingCJUAE101\\10st week\\Prob_Create_text_file\\test.txt", "w");
 	//Create file to write and read
 
 	if (fp == NULL)	//Confirm file opening
@@ -41,7 +41,6 @@ int main(void)
 
 	printf("\n[Loading file..]\n");
 	fscanf_s(fp, "%d %lf %s", &int_num, &double_num, str, MAXIMUM_ARRAY);	//Input data from the file
-	fputc(ch, fp);	//Input data of character from the file
 	printf("\nInteger number: %d\nReal number: %f\nCharcter: %c\nString: %s\n", int_num, double_num, ch, str);
 	//Output the data of file
 	
